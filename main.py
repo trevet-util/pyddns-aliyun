@@ -113,10 +113,15 @@ def editByDomainRecords(_client: AcsClient, _Record_data: dict, _value: str):
 
 
 def getIPInfo() -> str:
-    url = 'http://pv.sohu.com/cityjson?ie=utf-8'
+    # url = 'http://pv.sohu.com/cityjson?ie=utf-8'
+    # _result = urllib3.PoolManager().request('GET', url)
+    # ip_info_json: str = str(_result.data, encoding="utf-8").split("= ")[1]
+    # return json.loads(ip_info_json[:-1]).get("cip")
+
+    # 自己的阿里云虚拟主机PHP服务
+    url = 'https://www.trevet.cn/get-host.php'
     _result = urllib3.PoolManager().request('GET', url)
-    ip_info_json: str = str(_result.data, encoding="utf-8").split("= ")[1]
-    return json.loads(ip_info_json[:-1]).get("cip")
+    return json.loads(str(_result.data, encoding="utf-8")).get("host")
 
 
 def edit_service(_client: AcsClient, ip_str: str, _domain: str, _subdomain: str):
